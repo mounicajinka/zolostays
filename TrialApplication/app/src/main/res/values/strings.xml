@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TrialApplication</string>
+    <string name="title_activity_wastage">WastageActivity</string>
+</resources>

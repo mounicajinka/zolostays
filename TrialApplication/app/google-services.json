@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "575643063355",
+    "firebase_url": "https://kitchen-management-syste-4f373.firebaseio.com",
+    "project_id": "kitchen-management-syste-4f373",
+    "storage_bucket": "kitchen-management-syste-4f373.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575643063355:android:89097981d6978533",
+        "android_client_info": {
+          "package_name": "com.vogella.android.trialapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575643063355-c2djgjr05174vragfuv5qetdhqqkemb2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vogella.android.trialapplication",
+            "certificate_hash": "b8f145eae74a032288797ccce20cd6bf394db9b2"
+          }
+        },
+        {
+          "client_id": "575643063355-fi5rf8aaabio0o6sndktjco7h6kelb2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFYHG_0REjFLiONNfRMdSl_Bq1rb1qYV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575643063355-fi5rf8aaabio0o6sndktjco7h6kelb2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

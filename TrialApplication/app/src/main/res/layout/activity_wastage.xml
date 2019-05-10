@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#f4f4f4" >
+
+    <Spinner
+        android:id="@+id/itemsSpinner"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
+
+    <TextView
+        android:id="@+id/tvWastage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_below="@+id/itemsSpinner"
+        android:text="Wastage: "
+        android:layout_marginLeft="50dp" />
+
+    <EditText
+        android:id="@+id/edtvWastage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@+id/itemsSpinner"
+        android:layout_toRightOf="@+id/tvWastage"
+        android:layout_toEndOf="@+id/tvWastage"
+        android:layout_marginLeft="12dp" />
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textAllCaps="false"/>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
