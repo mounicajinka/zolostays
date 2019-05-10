@@ -3,6 +3,7 @@ package com.vogella.android.trialapplication;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.util.Log;
 
 public class App extends Application {
 
@@ -15,8 +16,16 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        db = getDB();
+        mContext = getApplicationContext();
 
+        Log.d("Check", "AppContext: "+getApplicationContext());
+
+        db = getDB();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
         mContext = getApplicationContext();
     }
 

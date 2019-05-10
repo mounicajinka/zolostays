@@ -12,22 +12,22 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface ZoloFoodsDao {
 
-    @Query("SELECT * FROM zoloFoods where city =:city")
+    @Query("SELECT * FROM zolo_foods where city =:city")
     public List<ZoloFoods> getDataByCity(String city);
 
-    @Query("SELECT city FROM zoloFoods")
+    @Query("SELECT city FROM zolo_foods ")
     public List<String> getAllCities();
 
-    @Query("SELECT property FROM zoloFoods WHERE city =:city")
+    @Query("SELECT property FROM zolo_foods  WHERE city =:city")
     public List<String> getProperties(String city);
 
     @Insert(onConflict = REPLACE)
     public void save(ZoloFoods zoloFoods);
 
-    @Query("SELECT * FROM zoloFoods WHERE isSubmited =:isSubmited")
+    @Query("SELECT * FROM zolo_foods  WHERE isSubmited =:isSubmited")
     public List<ZoloFoods> getDataBySubmited(Boolean isSubmited);
 
-    @Query("SELECT * FROM zoloFoods WHERE city=:city AND property=:property")
+    @Query("SELECT * FROM zolo_foods  WHERE city=:city AND property=:property")
     public List<ZoloFoods> getData(String city, String property);
 
 

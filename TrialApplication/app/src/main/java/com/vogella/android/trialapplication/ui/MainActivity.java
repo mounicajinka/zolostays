@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner spinnerCities, spinnerProperty, spinnerMeals;
 
-    String selectedCity = "", selectedProperty = "";
+    String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         spinnerMeals.setVisibility(View.GONE);
 
 
-        ArrayList<String> mealsList = new ArrayList<>();
+        final ArrayList<String> mealsList = new ArrayList<>();
         mealsList.add("Breakfast");
         mealsList.add("Lunch");
         mealsList.add("Dinner");
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allCities);
         spinnerCities.setAdapter(citiesAdapter);
 
-        spinnerCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
                     Log.d(TAG, "Selected City: "+allCities.get(position));
 
@@ -72,23 +72,37 @@ public class MainActivity extends AppCompatActivity {
 
                     propertiesList = ZoloFoodsVM.getPropertiesByCity(selectedCity);
 
-
-
                     ArrayAdapter<String> propertiesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, propertiesList);
 
                     spinnerProperty.setAdapter(propertiesAdapter);
                     spinnerProperty.setVisibility(View.VISIBLE);
                 }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        spinnerProperty.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedProperty = propertiesList.get(position);
                 Log.d(TAG, "Selected Property: "+selectedProperty);
                 spinnerMeals.setVisibility(View.VISIBLE);
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        spinnerMeals.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedTypeOfMeal = mealsList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
         Button btnNext = findViewById(R.id.btnNext);

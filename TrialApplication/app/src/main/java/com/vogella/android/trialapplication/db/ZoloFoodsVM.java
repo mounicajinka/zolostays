@@ -2,9 +2,12 @@ package com.vogella.android.trialapplication.db;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.persistence.room.Room;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.vogella.android.trialapplication.App;
+import com.vogella.android.trialapplication.AppDataBase;
 
 import java.util.ArrayList;
 
@@ -20,6 +23,9 @@ public class ZoloFoodsVM extends AndroidViewModel {
     }
 
     public static ArrayList<String> getAllCities() {
+
+        Log.d("Check", "AppContext: "+App.getInstance());
+
         return new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getAllCities());
     }
 

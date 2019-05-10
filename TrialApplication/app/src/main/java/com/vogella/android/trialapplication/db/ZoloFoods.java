@@ -5,7 +5,7 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "zoloFoods")
+@Entity(tableName = "zolo_foods")
 public class ZoloFoods {
 
     @PrimaryKey(autoGenerate = true)

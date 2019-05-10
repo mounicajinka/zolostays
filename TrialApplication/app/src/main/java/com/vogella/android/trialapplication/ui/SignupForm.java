@@ -30,7 +30,7 @@ public class SignupForm extends AppCompatActivity {
 
         setContentView(R.layout.activity_signup_form);
 
-        getSupportActionBar().setTitle("Signup Form");
+//        getSupportActionBar().setTitle("Signup Form");
 
         txtFullName = findViewById(R.id.txt_fullname);
 
