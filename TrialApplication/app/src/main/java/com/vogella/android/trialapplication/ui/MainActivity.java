@@ -24,6 +24,9 @@ import com.vogella.android.trialapplication.db.Meals;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -117,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ZoloFoods zoloFoods = new ZoloFoods( "", "", "", new Meals("", new ArrayList<String>(), 0), false);
-        ZoloFoodsVM.saveData(zoloFoods);
     }
 
 

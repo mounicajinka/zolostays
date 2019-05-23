@@ -1,5 +1,6 @@
 package com.vogella.android.trialapplication.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.gson.JsonObject;
+import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 public class WastageActivity extends AppCompatActivity {
 
@@ -55,8 +60,34 @@ public class WastageActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
+
+                //TODO: Network call, response, write in to mobile DB\
+//
+
+
+
+                //                                    do network calls here
+                //                                    like POST URL after writing into database
+
+                //                                    JSONObject jsonObject = new JSONObject();
+//
+//
+//                                    try {
+//                                        String property = jsonObject.getString("property");
+//
+//                                        String man
+//
+//
+//                                        ZoloFoods zoloFoods = new ZoloFoods( "", "", property, new Meals("", new ArrayList<String>(), 0), false);
+//                                        ZoloFoodsVM.saveData(zoloFoods);
+
+//
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+
+
             }
         });
 

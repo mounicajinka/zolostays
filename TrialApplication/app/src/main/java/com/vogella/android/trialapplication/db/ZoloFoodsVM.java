@@ -17,7 +17,6 @@ public class ZoloFoodsVM extends AndroidViewModel {
         super(application);
     }
 
-
     public static ArrayList<ZoloFoods> getDataByUserId() {
         return new ArrayList<>();
     }
