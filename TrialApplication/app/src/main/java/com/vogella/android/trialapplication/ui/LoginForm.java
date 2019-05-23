@@ -16,6 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.vogella.android.trialapplication.R;
+import com.vogella.android.trialapplication.db.Meals;
+import com.vogella.android.trialapplication.db.ZoloFoods;
+import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class LoginForm extends AppCompatActivity {
 
@@ -58,7 +66,6 @@ public class LoginForm extends AppCompatActivity {
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginForm.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                     return;
-
                 }
                 if (password.length() < 8) {
                     Toast.makeText(getApplicationContext(), "Password too short", Toast.LENGTH_SHORT).show();
@@ -70,7 +77,27 @@ public class LoginForm extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
+//                                    TODO: do network calls here
+//                                    GET@(database url)
+
+
+//
+//               JSONObject jsonObject = new JSONObject();
+//
+//                                    try {
+//                                        String property = jsonObject.getString("property");
+//
+//                                        String man
+//
+//
+//                                        ZoloFoods zoloFoods = new ZoloFoods( "", "", property, new Meals("", new ArrayList<String>(), 0), false);
+//                                        ZoloFoodsVM.saveData(zoloFoods);
+
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
 
                                 } else {
                                     Toast.makeText(LoginForm.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
