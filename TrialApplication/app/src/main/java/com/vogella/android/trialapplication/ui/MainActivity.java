@@ -161,10 +161,10 @@ public class MainActivity extends AppCompatActivity {
         Connection conn = null;
         String ConnURL = null;
         try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
             ConnURL = "jdbc:jtds:sqlserver://" + _server + ";"
                     + "databaseName=" + _DB + ";user=" + _user + ";password="
-                    + _pass + ";";
+                    + _pass + ";ssl=require";
             conn = DriverManager.getConnection(ConnURL);
         } catch (SQLException se) {
             Log.e("ERRO", se.getMessage());
