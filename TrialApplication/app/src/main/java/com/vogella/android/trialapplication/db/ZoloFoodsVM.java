@@ -26,6 +26,7 @@ public class ZoloFoodsVM extends AndroidViewModel {
         Log.d("Check", "AppContext: "+App.getInstance());
 
         return new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getAllCities());
+
     }
 
     public static ArrayList<String> getPropertiesByCity(String city) {

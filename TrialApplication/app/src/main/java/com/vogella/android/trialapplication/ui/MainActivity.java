@@ -1,10 +1,20 @@
 package com.vogella.android.trialapplication.ui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.StrictMode;
+
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +36,7 @@ import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -120,7 +131,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        try{
+            String server =  "34.205.83.88";
+            String user = "analytics_admin" ;
+            String pass = "DpWBOfz871Sa";
+            String db = "zolo_analytics_metabase";
+            Log.d("TESTING","START");
+            Connection connect = conn(user,pass,db,server);
+            Log.d("TESTING",""+connect.getMetaData());
+            PreparedStatement statement = connect.prepareStatement("EXEC SELECT * FROM Kitchen_menu");
+            final ArrayList list = new ArrayList();
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getString("meal_type"));
+                Log.d("TESTING",rs.getString("meal_type"));
+            }
+        } catch (Exception e){
+            Log.e("TESTING",""+e.getMessage());
+        }
+
+
     }
 
-
+    @SuppressLint("NewApi")
+    private Connection conn(String _user, String _pass, String _DB, String _server){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Connection conn = null;
+        String ConnURL = null;
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            ConnURL = "jdbc:jtds:sqlserver://" + _server + ";"
+                    + "databaseName=" + _DB + ";user=" + _user + ";password="
+                    + _pass + ";";
+            conn = DriverManager.getConnection(ConnURL);
+        } catch (SQLException se) {
+            Log.e("ERRO", se.getMessage());
+        } catch (ClassNotFoundException e) {
+            Log.e("ERRO", e.getMessage());
+        } catch (Exception e) {
+            Log.e("ERRO", e.getMessage());
+        }
+        return conn;
+    }
 }

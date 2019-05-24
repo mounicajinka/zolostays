@@ -20,6 +20,9 @@ public class ZoloFoods {
     @ColumnInfo(name = "property")
     private String property;
 
+    @ColumnInfo(name = "date")
+    private String date;
+
     @Embedded
     private Meals meals;
 
@@ -30,6 +33,7 @@ public class ZoloFoods {
         this.manager = manager;
         this.city = city;
         this.property = property;
+        this.date = date;
         this.meals = meals;
         this.isSubmited = isSubmited;
     }
@@ -64,6 +68,14 @@ public class ZoloFoods {
 
     public void setProperty(String property) {
         this.property = property;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Meals getMeals() {

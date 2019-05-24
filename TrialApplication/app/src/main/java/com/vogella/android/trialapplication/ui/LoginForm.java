@@ -1,6 +1,7 @@
 package com.vogella.android.trialapplication.ui;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.sql.SQLException;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +25,8 @@ import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 
 public class LoginForm extends AppCompatActivity {
@@ -76,18 +80,19 @@ public class LoginForm extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    Connection connect = conn("","","","");
 //                                    TODO: do network calls here
-//                                    GET@(database url)
+//                                    GET@(http://34.205.83.88/zolo_analytics_metabase/Kitchen_menu)
 
 
 //
-//               JSONObject jsonObject = new JSONObject();
+//                                  JSONObject jsonObject = new JSONObject();
 //
 //                                    try {
 //                                        String property = jsonObject.getString("property");
 //
-//                                        String man
+//                                        String manager = jsonObject.getString("manager");
+//                                          String city = jsonObject.getString("city");
 //
 //
 //                                        ZoloFoods zoloFoods = new ZoloFoods( "", "", property, new Meals("", new ArrayList<String>(), 0), false);
@@ -110,6 +115,28 @@ public class LoginForm extends AppCompatActivity {
 
     public void btn_signup_Form(View view) {
         startActivity(new Intent(getApplicationContext(), SignupForm.class));
+    }
+
+    public Connection conn(String _user, String _pass, String _DB, String _server){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Connection conn = null;
+        String ConnURL = null;
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            ConnURL = "jdbc:jtds:sqlserver://" + _server + ";"
+                    + "databaseName=" + _DB + ";user=" + _user + ";password="
+                    + _pass + ";";
+            conn = DriverManager.getConnection(ConnURL);
+        } catch (SQLException se) {
+            Log.e("ERRO", se.getMessage());
+        } catch (ClassNotFoundException e) {
+            Log.e("ERRO", e.getMessage());
+        } catch (Exception e) {
+            Log.e("ERRO", e.getMessage());
+        }
+        return conn;
     }
 
 
