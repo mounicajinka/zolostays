@@ -1,48 +1,35 @@
 package com.vogella.android.trialapplication.ui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.os.StrictMode;
-
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vogella.android.trialapplication.R;
-import com.vogella.android.trialapplication.db.Meals;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+import com.vogella.android.trialapplication.http.Api;
+import com.vogella.android.trialapplication.http.ApiClient;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
 
 
-
-    private ArrayList<String> allCities, propertiesList;
+    private ArrayList<String> allCities = new ArrayList<>(), propertiesList = new ArrayList<>();
 
 
     private static String TAG = "MainActivity";
@@ -56,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        allCities = ZoloFoodsVM.getAllCities();
+        // allCities = ZoloFoodsVM.getAllCities();
 
         spinnerCities = findViewById(R.id.citySpinner);
         spinnerProperty = findViewById(R.id.propertySpinner);
@@ -66,6 +53,42 @@ public class MainActivity extends AppCompatActivity {
         spinnerMeals.setVisibility(View.GONE);
 
 
+        foo0();
+        // foo();
+
+    }
+
+    private void foo0() {
+        Api service = ApiClient.getClient().create(Api.class);
+        Call<List<ZoloFoods>> call = service.getFood();
+        call.enqueue(new Callback<List<ZoloFoods>>() {
+            @Override
+            public void onResponse(Call<List<ZoloFoods>> call, Response<List<ZoloFoods>> response) {
+                generateDataList(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ZoloFoods>> call, Throwable t) {
+                Log.d("suthar", t.getLocalizedMessage());
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void generateDataList(List<ZoloFoods> body) {
+        //extract cities from here and call foo() function
+        for (int i=0; i< body.size(); i++){
+            allCities.add(body.get(i).getCity());
+            // propertiesList.add(body.get(i).getProperty());
+
+            Log.d("suthar", body.get(i).getCity());
+        }
+
+        foo();
+    }
+
+    private void foo() {
         final ArrayList<String> mealsList = new ArrayList<>();
         mealsList.add("Breakfast");
         mealsList.add("Lunch");
@@ -134,6 +157,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-//
-    }};
+    }
+}
