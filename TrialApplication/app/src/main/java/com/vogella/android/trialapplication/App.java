@@ -5,11 +5,23 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
 
+import com.vogella.android.trialapplication.http.Api;
+import com.vogella.android.trialapplication.http.ApiClient;
+
+import java.util.concurrent.Executors;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class App extends Application {
 
     private AppDataBase db;
 
     private static Context mContext;
+
+    public Api api;
 
 
     @Override
@@ -21,6 +33,7 @@ public class App extends Application {
         Log.d("Check", "AppContext: "+getApplicationContext());
 
         db = getDB();
+        api = ApiClient.getClient().create(Api.class);
     }
 
     @Override

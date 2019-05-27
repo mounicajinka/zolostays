@@ -1,6 +1,7 @@
 package com.vogella.android.trialapplication.http;
 
-import com.vogella.android.trialapplication.db.ZoloFoods;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface Api {
     //@GET("Path")
     //    Call<JsonObject> updateProfile(@Header("token") String token, @Body JsonObject jsonObject);
     //
-    @GET("/test.php")
-    Call<List<ZoloFoods>> getFood();
+    @GET("http://haematogenous-mista.000webhostapp.com/test.php")
+    Call<JsonArray> getData();
 }
