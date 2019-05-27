@@ -1,44 +1,26 @@
 package com.vogella.android.trialapplication.ui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.os.StrictMode;
-
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.Meals;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
 
 
 

@@ -5,6 +5,8 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "zolo_foods")
 public class ZoloFoods {
 
@@ -12,15 +14,19 @@ public class ZoloFoods {
     private int id;
 
     @ColumnInfo(name = "manager")
+    @SerializedName("username")
     private String manager;
 
     @ColumnInfo(name = "city")
+    @SerializedName("usercity")
     private String city;
 
     @ColumnInfo(name = "property")
+    @SerializedName("userhotel")
     private String property;
 
     @ColumnInfo(name = "date")
+    @SerializedName("daily_date")
     private String date;
 
     @Embedded
