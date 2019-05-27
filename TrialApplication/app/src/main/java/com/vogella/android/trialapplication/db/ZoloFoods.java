@@ -29,7 +29,7 @@ public class ZoloFoods {
     @ColumnInfo(name = "isSubmited")
     private Boolean isSubmited;
 
-    public ZoloFoods(String manager, String city, String property, Meals meals, Boolean isSubmited) {
+    public ZoloFoods( String manager, String city, String property,String date, Meals meals, Boolean isSubmited) {
         this.manager = manager;
         this.city = city;
         this.property = property;

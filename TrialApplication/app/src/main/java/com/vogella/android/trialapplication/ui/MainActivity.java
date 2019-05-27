@@ -41,6 +41,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
 
+
     private ArrayList<String> allCities, propertiesList;
 
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
-                    Log.d(TAG, "Selected City: "+allCities.get(position));
+                    Log.d(TAG, "Selected City: " + allCities.get(position));
 
                     selectedCity = allCities.get(position);
 
@@ -94,19 +95,21 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spinnerProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedProperty = propertiesList.get(position);
-                Log.d(TAG, "Selected Property: "+selectedProperty);
+                Log.d(TAG, "Selected Property: " + selectedProperty);
                 spinnerMeals.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         spinnerMeals.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -116,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         Button btnNext = findViewById(R.id.btnNext);
@@ -126,53 +130,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!(selectedCity.isEmpty() && selectedProperty.isEmpty())) {
-                    Log.d(TAG, "Good to launch another screen: "+selectedCity+" "+selectedProperty);
+                    Log.d(TAG, "Good to launch another screen: " + selectedCity + " " + selectedProperty);
                 }
             }
         });
 
-        try{
-            String server =  "34.205.83.88";
-            String user = "analytics_admin" ;
-            String pass = "DpWBOfz871Sa";
-            String db = "zolo_analytics_metabase";
-            Log.d("TESTING","START");
-            Connection connect = conn(user,pass,db,server);
-            Log.d("TESTING",""+connect.getMetaData());
-            PreparedStatement statement = connect.prepareStatement("EXEC SELECT * FROM Kitchen_menu");
-            final ArrayList list = new ArrayList();
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                list.add(rs.getString("meal_type"));
-                Log.d("TESTING",rs.getString("meal_type"));
-            }
-        } catch (Exception e){
-            Log.e("TESTING",""+e.getMessage());
-        }
-
-
-    }
-
-    @SuppressLint("NewApi")
-    private Connection conn(String _user, String _pass, String _DB, String _server){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Connection conn = null;
-        String ConnURL = null;
-        try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            ConnURL = "jdbc:jtds:sqlserver://" + _server + ";"
-                    + "databaseName=" + _DB + ";user=" + _user + ";password="
-                    + _pass + ";ssl=require";
-            conn = DriverManager.getConnection(ConnURL);
-        } catch (SQLException se) {
-            Log.e("ERRO", se.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.e("ERRO", e.getMessage());
-        } catch (Exception e) {
-            Log.e("ERRO", e.getMessage());
-        }
-        return conn;
-    }
-}
+//
+    }};
