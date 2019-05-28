@@ -2,6 +2,7 @@ package com.vogella.android.trialapplication.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -31,5 +32,6 @@ public interface ZoloFoodsDao {
     @Query("SELECT * FROM zolo_foods  WHERE city=:city AND property=:property")
     List<ZoloFoods> getData(String city, String property);
 
-
+    @Query("DELETE FROM zolo_foods")
+    void deleteAll();
 }

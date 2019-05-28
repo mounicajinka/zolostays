@@ -36,6 +36,7 @@ class ZoloFoodsRepo {
     }
 
     private fun convertListAndSaveTODB(list: ArrayList<Temp>) {
+        db.deleteAll()
         for (data in list) {
             val meal = Meals(data.meal_type, arrayListOf(data.item_name), null)
             val zoloFood = ZoloFoods(data.username, data.usercity, data.userhotel, data.daily_date, meal, null)
