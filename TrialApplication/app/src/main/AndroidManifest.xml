@@ -15,12 +15,13 @@
         <activity
             android:name=".ui.WastageActivity"
             android:label="@string/title_activity_wastage"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.SignupForm" />
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.LoginForm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

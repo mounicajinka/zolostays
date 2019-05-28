@@ -1,62 +1,57 @@
 package com.vogella.android.trialapplication.ui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.os.StrictMode;
-
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
-import com.vogella.android.trialapplication.db.Meals;
-import com.vogella.android.trialapplication.db.ZoloFoods;
-import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+import com.vogella.android.trialapplication.db.viewmodels.ZoloFoodsVM;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
-
+    private ZoloFoodsVM model;
     private ArrayList<String> allCities, propertiesList;
-
 
     private static String TAG = "MainActivity";
 
-    Spinner spinnerCities, spinnerProperty, spinnerMeals;
+    private Spinner spinnerCities, spinnerProperty, spinnerMeals;
 
-    String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "";
+    private String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        allCities = ZoloFoodsVM.getAllCities();
+        init();
+        model = new ViewModelProvider.AndroidViewModelFactory(App.getInstance()).create(ZoloFoodsVM.class);
+
+        Objects.requireNonNull(model.getallCities()).observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(@Nullable List<String> strings) {
+                allCities = new ArrayList<>(strings);
+                ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, strings);
+                spinnerCities.setAdapter(citiesAdapter);
+            }
+        });
+
+    }
+
+    private void init() {
 
         spinnerCities = findViewById(R.id.citySpinner);
         spinnerProperty = findViewById(R.id.propertySpinner);
@@ -64,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerProperty.setVisibility(View.GONE);
         spinnerMeals.setVisibility(View.GONE);
-
 
         final ArrayList<String> mealsList = new ArrayList<>();
         mealsList.add("Breakfast");
@@ -74,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mealsList);
         spinnerMeals.setAdapter(mealsAdapter);
 
-        ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allCities);
-        spinnerCities.setAdapter(citiesAdapter);
 
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -85,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                     selectedCity = allCities.get(position);
 
-                    propertiesList = ZoloFoodsVM.getPropertiesByCity(selectedCity);
+                    propertiesList = new ArrayList<>(model.getPropertiesByCity(selectedCity));
 
                     ArrayAdapter<String> propertiesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, propertiesList);
 
@@ -134,6 +126,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-//
-    }};
+    }
+}
