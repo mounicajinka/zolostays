@@ -9,7 +9,6 @@ public class ApiClient {
     private static final String BASE_URL = "http://haematogenous-mista.000webhostapp.com";
 
     public static Retrofit getClient() {
-
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -17,5 +16,9 @@ public class ApiClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static Api createApiClient(){
+        return ApiClient.getClient().create(Api.class);
     }
 }
