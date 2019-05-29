@@ -37,7 +37,6 @@ public class LoginForm extends AppCompatActivity {
     EditText txtEmailID,txtPassword;
     Button btn_login;
     private FirebaseAuth firebaseAuth;
-    public static TextView data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
