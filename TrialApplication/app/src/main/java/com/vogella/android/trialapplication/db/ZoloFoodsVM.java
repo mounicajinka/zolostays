@@ -10,8 +10,6 @@ import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.AppDataBase;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ZoloFoodsVM extends AndroidViewModel {
 
@@ -25,13 +23,15 @@ public class ZoloFoodsVM extends AndroidViewModel {
     }
 
     public static ArrayList<String> getAllCities() {
-        Set<String> cities = new HashSet<>(App.getInstance().getDB().zoloFoodsDao().getAllCities());
-        return new ArrayList<>(cities);
+
+        Log.d("Check", "AppContext: "+App.getInstance());
+
+        return new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getAllCities());
+
     }
 
     public static ArrayList<String> getPropertiesByCity(String city) {
-        Set<String> properties = new HashSet<>(App.getInstance().getDB().zoloFoodsDao().getProperties(city));
-        return new ArrayList<>(properties);
+        return new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getProperties(city));
     }
 
     public static ArrayList<String> getItemsByData(String city, String property, String typeOfMeal) {
@@ -40,18 +40,11 @@ public class ZoloFoodsVM extends AndroidViewModel {
 
         for (int i=0; i<data.size(); i++) {
             if (data.get(i).getMeals().getType().equalsIgnoreCase(typeOfMeal)) {
-                items.add(data.get(i).getMeals().getItem());
+                items.addAll(data.get(i).getMeals().getItems());
             }
         }
-
-        Set<String> itemsList = new HashSet<>(items);
-
-        return new ArrayList<>(itemsList);
+        return items;
     }
-
-    //whatever response we get from json format/response from user,which one do we need to save in our app database.Generally
-    //info is stored in app database to help us in such cases when there is no internet anf the data cannot be sent to server
-    //App database is like backup database to save data temporarily and then when internet works the data can be sent to server.
 
     public static void saveData(ZoloFoods zoloFoods) {
         App.getInstance().getDB().zoloFoodsDao().save(zoloFoods);

@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.vogella.android.trialapplication.App;
@@ -26,9 +25,6 @@ import retrofit2.Call;
 
 public class WastageActivity extends AppCompatActivity {
 
-    String selectedTypeOfMeal = "";
-    ArrayList<String> items = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +36,7 @@ public class WastageActivity extends AppCompatActivity {
         String property = getIntent().getStringExtra("property");
         String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
 
-        items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
+        ArrayList<String> items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
 
         ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(mealsAdapter);
@@ -48,7 +44,7 @@ public class WastageActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedTypeOfMeal = items.get(position);
+
             }
 
             @Override
@@ -64,13 +60,7 @@ public class WastageActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(WastageActivity.this, "wastage: "+edtvWastage.getText()+" for typeOfMeal: "+selectedTypeOfMeal, Toast.LENGTH_LONG).show();
-
                 Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
-
-
-
 
                 //TODO: Network call, response, write in to mobile DB\
 //

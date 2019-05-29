@@ -12,20 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SplashScreen">
+        <activity
+            android:name=".ui.WastageActivity"
+            android:label="@string/title_activity_wastage"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.SignupForm" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.LoginForm">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.WastageActivity"
-            android:label="@string/title_activity_wastage"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.SignupForm" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.LoginForm" />
     </application>
 
 </manifest>
