@@ -10,5 +10,9 @@ public interface Api {
 
     @GET("http://haematogenous-mista.000webhostapp.com/test.php")
     Call<JsonArray> getData();
+
+    @POST("http://haematogenous-mista.000webhostapp.com/test.php")
+    Call<JsonArray> getData();
+
 }
 
