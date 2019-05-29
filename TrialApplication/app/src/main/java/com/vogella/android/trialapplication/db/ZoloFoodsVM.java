@@ -25,8 +25,6 @@ public class ZoloFoodsVM extends AndroidViewModel {
     }
 
     public static ArrayList<String> getAllCities() {
-
-        Log.d("Check", "AppContext: "+App.getInstance());
         Set<String> cities = new HashSet<>(App.getInstance().getDB().zoloFoodsDao().getAllCities());
         return new ArrayList<>(cities);
     }
@@ -51,7 +49,9 @@ public class ZoloFoodsVM extends AndroidViewModel {
         return new ArrayList<>(itemsList);
     }
 
-
+    //whatever response we get from json format/response from user,which one do we need to save in our app database.Generally
+    //info is stored in app database to help us in such cases when there is no internet anf the data cannot be sent to server
+    //App database is like backup database to save data temporarily and then when internet works the data can be sent to server.
 
     public static void saveData(ZoloFoods zoloFoods) {
         App.getInstance().getDB().zoloFoodsDao().save(zoloFoods);
