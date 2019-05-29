@@ -9,16 +9,31 @@ public class Meals {
     @ColumnInfo(name = "type")
     private String type;
 
-    @ColumnInfo(name = "items")
-    private ArrayList<String> items;
+    @ColumnInfo(name = "item")
+    private String item;
+
+    @ColumnInfo(name="servicetype")
+    private String servicetype;
+
+    @ColumnInfo(name="vesselid")
+    private String vesselid;
+
+    @ColumnInfo(name="vesselweight")
+    private Integer vesselweight;
 
     @ColumnInfo(name = "wastage")
     private Integer wastage;
 
-    public Meals(String type, ArrayList<String> items, Integer wastage) {
+
+    public Meals(String type, String item, String servicetype, String vesselid, Integer vesselweight,
+                 Integer wastage) {
         this.type = type;
-        this.items = items;
+        this.item = item;
+        this.servicetype=servicetype;
+        this.vesselid=vesselid;
+        this.vesselweight=vesselweight;
         this.wastage = wastage;
+
     }
 
     public String getType() {
@@ -29,12 +44,36 @@ public class Meals {
         this.type = type;
     }
 
-    public ArrayList<String> getItems() {
-        return items;
+    public String getItem() {
+        return item;
     }
 
-    public void setItems(ArrayList<String> items) {
-        this.items = items;
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getServicetype() {
+        return servicetype;
+    }
+
+    public void setServicetype(String servicetype) {
+        this.servicetype = servicetype;
+    }
+
+    public String getVesselid() {
+        return vesselid;
+    }
+
+    public void setVesselid(String vesselid) {
+        this.vesselid = vesselid;
+    }
+
+    public Integer getVesselweight() {
+        return vesselweight;
+    }
+
+    public void setVesselweight(Integer vesselweight) {
+        this.vesselweight = vesselweight;
     }
 
     public Integer getWastage() {
