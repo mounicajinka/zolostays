@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,7 +36,6 @@ public class LoginForm extends AppCompatActivity {
     EditText txtEmailID,txtPassword;
     Button btn_login;
     private FirebaseAuth firebaseAuth;
-    public static TextView data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

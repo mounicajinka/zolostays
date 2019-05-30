@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://haematogenous-mista.000webhostapp.com";
+    private static final String BASE_URL = "http://haematogenous-mista.000webhostapp.com/test.php";
 
     public static Retrofit getClient() {
 
