@@ -1,6 +1,8 @@
 package com.vogella.android.trialapplication.http;
 
-import com.google.gson.JsonArray;
+import com.vogella.android.trialapplication.model.KitchenMenu;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -8,13 +10,12 @@ import retrofit2.http.GET;
 
 public interface Api {
 
-    @GET("test.php")
-    Call<JsonArray> getData();
+    @GET("http://localhost:3000/Kitchen_menu/userdata/")
+    Call<List<KitchenMenu>> getData();
 
-    /*@POST("http://localhost:3000/meal_analysis/insert ")*/
-    /*Call<JsonArray> postData();*/
-/*
-*/
+    /*@POST(" ")
+    Call<List<MealAnalysis> postData;*/
+
 
 }
 

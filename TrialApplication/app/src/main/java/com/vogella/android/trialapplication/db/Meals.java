@@ -18,20 +18,16 @@ public class Meals {
     @ColumnInfo(name="vesselid")
     private String vesselid;
 
-    @ColumnInfo(name="vesselweight")
-    private Integer vesselweight;
-
     @ColumnInfo(name = "wastage")
     private Integer wastage;
 
 
-    public Meals(String type, String item, String servicetype, String vesselid, Integer vesselweight,
+    public Meals(String type, String item, String servicetype, String vesselid,
                  Integer wastage) {
         this.type = type;
         this.item = item;
         this.servicetype=servicetype;
         this.vesselid=vesselid;
-        this.vesselweight=vesselweight;
         this.wastage = wastage;
 
     }
@@ -68,13 +64,6 @@ public class Meals {
         this.vesselid = vesselid;
     }
 
-    public Integer getVesselweight() {
-        return vesselweight;
-    }
-
-    public void setVesselweight(Integer vesselweight) {
-        this.vesselweight = vesselweight;
-    }
 
     public Integer getWastage() {
         return wastage;

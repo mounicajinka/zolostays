@@ -17,13 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.Meals;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+import com.vogella.android.trialapplication.model.KitchenMenu;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,66 +81,59 @@ public class LoginForm extends AppCompatActivity {
                         .addOnCompleteListener(LoginForm.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+
+
                                 if (task.isSuccessful()) {
-                                    final Callback<JsonArray> getNetworkData = new Callback<JsonArray>() {
+                                    final Callback<List<KitchenMenu>> data = new Callback<List<KitchenMenu>>() {
                                         @Override
-                                        public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
-
+                                        public void onResponse(Call<List<KitchenMenu>> call, Response<List<KitchenMenu>> response) {
                                             if (response.isSuccessful()) {
-                                                Log.d(TAG, "httpCallBack: "+response.body());
-                                                for (int i = 0; i < response.body().size(); i++) {
-
-                                                    JsonObject jsonObject = response.body().get(i).getAsJsonObject();
-
-                                                    String city = jsonObject.get("usercity").getAsString();
-                                                    String property = jsonObject.get("userhotel").getAsString();
-                                                    String date = jsonObject.get("daily_date").getAsString();
-                                                    String mealType = jsonObject.get("meal_type").getAsString();
-                                                    String itemName = jsonObject.get("item_name").getAsString();
-                                                    String manager = jsonObject.get("username").getAsString();
-
-                                                    String serviceType = "";
-                                                    String vesselId = "";
-                                                    int vesselWeight = 0;
-                                                    int wastage = 0;
-                                                    if (jsonObject.has("service_type")) {
-                                                        serviceType = jsonObject.get("service_type").getAsString();
-                                                    }
-                                                    if (jsonObject.has("vessel_id")) {
-                                                        vesselId = jsonObject.get("vessel_id").getAsString();
-                                                    }
-                                                    if (jsonObject.has("vessel_wastage")) {
-                                                        vesselWeight = jsonObject.get("vessel_wastage").getAsInt();
-                                                    }
-                                                    if (jsonObject.has("wastage")) {
-                                                        wastage = jsonObject.get("wastage").getAsInt();
-                                                    }
-
-                                                    ZoloFoods zoloFoods = new ZoloFoods(manager, city, property, date, new Meals(mealType, itemName, serviceType, vesselId, vesselWeight, wastage), false);
-                                                    ZoloFoodsVM.saveData(zoloFoods);
-                                                }
+                                                Log.d(TAG, "httpCallBack: " + response.body());
+                                                //response.body().iterator() or create instance in dao to save list of java objects into local db
+                                                //create seperate dbs to store kitchen menu and to store data for menu analysis
+                                                //ZoloFoods zoloFoods = new ZoloFoods(manager, city, property, date, new Meals(mealType, itemName, serviceType, vesselId, wastage), false);
+                                                //ZoloFoodsVM.saveData(zoloFoods);
                                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                            }else {
-                                                Log.d(TAG, "failure response: "+response.isSuccessful());
+                                            }
+                                        else{
+
+                                                //Log.d(TAG, "failure response: "+response.isSuccessful());
+
                                             }
                                         }
 
                                         @Override
-                                        public void onFailure(Call<JsonArray> call, Throwable t) {
-                                            Log.d(TAG, "httpCallBack: "+t.getStackTrace());
+                                        public void onFailure(Call<List<KitchenMenu>> call, Throwable throwable) {
+                                            //Log.d(TAG, "httpCallBack: "+t.getStackTrace());
+
                                         }
                                     };
-                                    App.getInstance().api.getData().enqueue(getNetworkData);
+
+
+
+                                    App.getInstance().api.getData().enqueue(data);
                                     SharedPreferences sharedPreferences = App.getInstance().getSharedPreferences("AppPreference", Context.MODE_PRIVATE);
                                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
-                                } else {
-                                    Toast.makeText(LoginForm.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
                                 }
+
+
+                                else {
+                                    Toast.makeText(LoginForm.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
+
+                                }
+
+
+
+
                             }
+
+
                         });
             }
         });
     }
+
+
 
     public void btn_signup_Form(View view) {
         startActivity(new Intent(getApplicationContext(), SignupForm.class));
@@ -147,3 +141,6 @@ public class LoginForm extends AppCompatActivity {
 
 
 }
+
+
+

@@ -15,14 +15,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
+import com.vogella.android.trialapplication.db.Meals;
+import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WastageActivity extends AppCompatActivity {
 
@@ -69,6 +74,50 @@ public class WastageActivity extends AppCompatActivity {
 
                 Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
 
+
+
+
+
+
+               /* if (task.isSuccessful()) {
+                    final Callback<JsonArray> getNetworkData = new Callback<JsonArray>() {
+                        @Override
+                        public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+
+                            if (response.isSuccessful()) {
+                                Log.d(TAG, "httpCallBack: "+response.body());
+                                for (int i = 0; i < response.body().size(); i++) {
+
+                                    JsonObject jsonObject = response.body().get(i).getAsJsonObject();
+
+                                    String city = jsonObject.get("usercity").getAsString();
+                                    String property = jsonObject.get("userhotel").getAsString();
+                                    String date = jsonObject.get("daily_date").getAsString();
+                                    String mealType = jsonObject.get("meal_type").getAsString();
+                                    String itemName = jsonObject.get("item_name").getAsString();
+                                    String manager = jsonObject.get("username").getAsString();
+
+                                    String serviceType = "";
+                                    String vesselId = "";
+                                    int vesselWeight = 0;
+                                    int wastage = 0;
+                                    if (jsonObject.has("service_type")) {
+                                        serviceType = jsonObject.get("service_type").getAsString();
+                                    }
+                                    if (jsonObject.has("vessel_id")) {
+                                        vesselId = jsonObject.get("vessel_id").getAsString();
+                                    }
+                                    if (jsonObject.has("vessel_wastage")) {
+                                        vesselWeight = jsonObject.get("vessel_wastage").getAsInt();
+                                    }
+                                    if (jsonObject.has("wastage")) {
+                                        wastage = jsonObject.get("wastage").getAsInt();
+                                    }
+
+                                    ZoloFoods zoloFoods = new ZoloFoods(manager, city, property, date, new Meals(mealType, itemName, serviceType, vesselId, vesselWeight, wastage), false);
+                                    ZoloFoodsVM.saveData(zoloFoods);
+                                }
+*/
 
 
 
