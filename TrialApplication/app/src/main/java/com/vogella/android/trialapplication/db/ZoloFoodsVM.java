@@ -54,4 +54,9 @@ public class ZoloFoodsVM extends AndroidViewModel {
         App.getInstance().getDB().zoloFoodsDao().save(zoloFoods);
     }
 
+    public static void clearData(ZoloFoods zoloFoods) {
+        zoloFoods = null;
+    }
+
+
 }

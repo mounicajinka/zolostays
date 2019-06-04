@@ -7,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Entity(tableName = "zolo_foods")
 public class ZoloFoods {
 
@@ -27,7 +29,7 @@ public class ZoloFoods {
 
     @ColumnInfo(name = "date")
     @SerializedName("daily_date")
-    private String date;
+    private Date date;
 
     @Embedded
     private Meals meals;
@@ -35,7 +37,7 @@ public class ZoloFoods {
     @ColumnInfo(name = "isSubmited")
     private Boolean isSubmited;
 
-    public ZoloFoods( String manager, String city, String property,String date, Meals meals, Boolean isSubmited) {
+    public ZoloFoods( String manager, String city, String property,Date date, Meals meals, Boolean isSubmited) {
         this.manager = manager;
         this.city = city;
         this.property = property;
@@ -76,11 +78,9 @@ public class ZoloFoods {
         this.property = property;
     }
 
-    public String getDate() {
-        return date;
-    }
+    public Date getDate() { return date; }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

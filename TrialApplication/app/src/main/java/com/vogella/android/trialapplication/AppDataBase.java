@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
+import com.vogella.android.trialapplication.db.MealAnalysisDao;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsDao;
 
@@ -15,6 +16,7 @@ public abstract class AppDataBase extends RoomDatabase  {
 
     public abstract ZoloFoodsDao zoloFoodsDao();
 
+    public abstract MealAnalysisDao MealAnalysisDao();
 }
 
 

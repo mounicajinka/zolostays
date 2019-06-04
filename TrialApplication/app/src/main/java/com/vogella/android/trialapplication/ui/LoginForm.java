@@ -24,6 +24,7 @@ import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 import com.vogella.android.trialapplication.model.KitchenMenu;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -89,45 +90,47 @@ public class LoginForm extends AppCompatActivity {
                                         public void onResponse(Call<List<KitchenMenu>> call, Response<List<KitchenMenu>> response) {
                                             if (response.isSuccessful()) {
                                                 Log.d(TAG, "httpCallBack: " + response.body());
-                                                //response.body().iterator() or create instance in dao to save list of java objects into local db
-                                                //create seperate dbs to store kitchen menu and to store data for menu analysis
-                                                //ZoloFoods zoloFoods = new ZoloFoods(manager, city, property, date, new Meals(mealType, itemName, serviceType, vesselId, wastage), false);
-                                                //ZoloFoodsVM.saveData(zoloFoods);
-                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                            }
-                                        else{
+                                                try{
+                                                    List<KitchenMenu> KitchenData = response.body();
+                                                    for (int i = 0; i < KitchenData.size(); i++) {
 
-                                                //Log.d(TAG, "failure response: "+response.isSuccessful());
+                                                        String manager = KitchenData.get(i).getManager();
+                                                        String city  = KitchenData.get(i).getCity();
+                                                        String property = KitchenData.get(i).getProperty();
+                                                        Date date = KitchenData.get(i).getDate();
+                                                        String mealType = KitchenData.get(i).getMealtype();
+                                                        String itemName = KitchenData.get(i).getItem();
+                                                        ZoloFoods zoloFoods =new ZoloFoods(manager,city,property,date,new Meals(mealType,itemName),false);
+                                                        ZoloFoodsVM.saveData(zoloFoods);
+
+                                                    }
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                                                }catch (Exception e){
+                                                    Log.d("onResponse", "There is an error");
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        else{ Log.d(TAG, "failure response: "+response.isSuccessful());
 
                                             }
                                         }
 
                                         @Override
-                                        public void onFailure(Call<List<KitchenMenu>> call, Throwable throwable) {
-                                            //Log.d(TAG, "httpCallBack: "+t.getStackTrace());
+                                        public void onFailure(Call<List<KitchenMenu>> call, Throwable t ) {
+                                            Log.d(TAG, "httpCallBack: "+t.getStackTrace());
 
                                         }
                                     };
-
-
-
                                     App.getInstance().api.getData().enqueue(data);
                                     SharedPreferences sharedPreferences = App.getInstance().getSharedPreferences("AppPreference", Context.MODE_PRIVATE);
                                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
                                 }
-
-
                                 else {
                                     Toast.makeText(LoginForm.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
 
                                 }
-
-
-
-
                             }
-
-
                         });
             }
         });
