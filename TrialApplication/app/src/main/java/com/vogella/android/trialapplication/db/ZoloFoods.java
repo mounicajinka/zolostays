@@ -29,20 +29,44 @@ public class ZoloFoods {
 
     @ColumnInfo(name = "date")
     @SerializedName("daily_date")
-    private Date date;
+    private String date;
 
-    @Embedded
-    private Meals meals;
+
+    @ColumnInfo(name = "type")
+    @SerializedName("meal_type")
+    private String meal_type;
+
+    @ColumnInfo(name = "item")
+    @SerializedName("item_name")
+    private String item;
+
+    @ColumnInfo(name = "service_type")
+    @SerializedName("form_type")
+    private String  service_type;
+
+    @ColumnInfo(name = "vessel_id")
+    @SerializedName("vessel_id")
+    private String vessle_id;
+
+    @ColumnInfo(name = "wastage")
+    @SerializedName("weight")
+    private Integer wastage;
 
     @ColumnInfo(name = "isSubmited")
     private Boolean isSubmited;
 
-    public ZoloFoods( String manager, String city, String property,Date date, Meals meals, Boolean isSubmited) {
+    public ZoloFoods( int id, String manager, String city, String property,String date,String meal_type, String item,String service_type,
+                      String  vessle_id,Integer wastage,  Boolean isSubmited) {
+        this.id = id;
         this.manager = manager;
         this.city = city;
         this.property = property;
         this.date = date;
-        this.meals = meals;
+        this.meal_type=meal_type;
+       this.item =item;
+       this.service_type = service_type;
+       this.vessle_id = vessle_id;
+       this.wastage = wastage;
         this.isSubmited = isSubmited;
     }
 
@@ -78,18 +102,50 @@ public class ZoloFoods {
         this.property = property;
     }
 
-    public Date getDate() { return date; }
+    public String getDate() { return date; }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Meals getMeals() {
-        return meals;
+    public String getMeal_type() {
+        return meal_type;
     }
 
-    public void setMeals(Meals meals) {
-        this.meals = meals;
+    public void setMeal_type(String meal_type) {
+        this.meal_type = meal_type;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getService_type() {
+        return service_type;
+    }
+
+    public void setService_type(String service_type) {
+        this.service_type = service_type;
+    }
+
+    public String getVessle_id() {
+        return vessle_id;
+    }
+
+    public void setVessle_id(String vessle_id) {
+        this.vessle_id = vessle_id;
+    }
+
+    public Integer getWastage() {
+        return wastage;
+    }
+
+    public void setWastage(Integer wastage) {
+        this.wastage = wastage;
     }
 
     public Boolean getSubmited() {

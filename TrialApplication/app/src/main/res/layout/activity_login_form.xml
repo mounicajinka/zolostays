@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" Email Id"
+            android:text="jinkamounica@gmail.com"
             android:ems="10"
             android:inputType="text"
             android:textSize="22sp"
@@ -44,8 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:text="jinka551"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textSize="22sp"
             />
     </android.support.design.widget.TextInputLayout>

@@ -1,11 +1,7 @@
 package com.vogella.android.trialapplication.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,19 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
-import com.vogella.android.trialapplication.db.Meals;
-import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class WastageActivity extends AppCompatActivity {
 
@@ -75,6 +62,11 @@ public class WastageActivity extends AppCompatActivity {
                 Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
 
                 //TODO: Network call, response, write in to mobile DB\
+
+
+
+                //ZoloFoods =new ZoloFoods(manager,city,property,date,new Meals(mealType,itemName),false);
+                //                                                        ZoloFoodsVM.saveData(zoloFoods);
 //
 
 

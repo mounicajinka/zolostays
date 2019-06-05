@@ -34,13 +34,18 @@ public class ZoloFoodsVM extends AndroidViewModel {
         return new ArrayList<>(properties);
     }
 
+   /* public static ArrayList<String> getMealType(String city,String property) {
+        Set<String> typeOfMeal = new HashSet<>(App.getInstance().getDB().zoloFoodsDao().getData(city,property));
+        return new ArrayList<>(properties)
+    }*/
+
     public static ArrayList<String> getItemsByData(String city, String property, String typeOfMeal) {
         ArrayList<ZoloFoods> data = new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getData(city, property));
         ArrayList<String> items = new ArrayList<>();
 
         for (int i=0; i<data.size(); i++) {
-            if (data.get(i).getMeals().getType().equalsIgnoreCase(typeOfMeal)) {
-                items.add(data.get(i).getMeals().getItem());
+            if (data.get(i).getMeal_type().equalsIgnoreCase(typeOfMeal)) {
+                items.add(data.get(i).getItem());
             }
         }
 
@@ -54,9 +59,9 @@ public class ZoloFoodsVM extends AndroidViewModel {
         App.getInstance().getDB().zoloFoodsDao().save(zoloFoods);
     }
 
-    public static void clearData(ZoloFoods zoloFoods) {
-        zoloFoods = null;
-    }
+   // public static void clearData(ZoloFoods zoloFoods) {
+        //zoloFoods = null;
+    //}
 
 
 }

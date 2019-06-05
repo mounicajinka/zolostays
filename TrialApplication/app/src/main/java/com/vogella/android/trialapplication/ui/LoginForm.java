@@ -19,12 +19,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
-import com.vogella.android.trialapplication.db.Meals;
 import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 import com.vogella.android.trialapplication.model.KitchenMenu;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -95,12 +93,14 @@ public class LoginForm extends AppCompatActivity {
                                                     for (int i = 0; i < KitchenData.size(); i++) {
 
                                                         String manager = KitchenData.get(i).getManager();
+                                                        int id = KitchenData.get(i).getId();
                                                         String city  = KitchenData.get(i).getCity();
                                                         String property = KitchenData.get(i).getProperty();
-                                                        Date date = KitchenData.get(i).getDate();
+                                                        String date = KitchenData.get(i).getDate();
                                                         String mealType = KitchenData.get(i).getMealtype();
                                                         String itemName = KitchenData.get(i).getItem();
-                                                        ZoloFoods zoloFoods =new ZoloFoods(manager,city,property,date,new Meals(mealType,itemName),false);
+                                                        System.out.println("hhhhh "+mealType);
+                                                        ZoloFoods zoloFoods =new ZoloFoods(id, manager,city,property,date,mealType,itemName,"","", 0, false);
                                                         ZoloFoodsVM.saveData(zoloFoods);
 
                                                     }

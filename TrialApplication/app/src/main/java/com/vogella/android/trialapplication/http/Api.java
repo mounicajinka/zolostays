@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface Api {
 
-    @GET("http://localhost:3000/Kitchen_menu/userdata/")
+    @GET("test.php")
     Call<List<KitchenMenu>> getData();
 
     /*@POST(" ")

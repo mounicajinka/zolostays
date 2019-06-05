@@ -1,10 +1,12 @@
 package com.vogella.android.trialapplication.model;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.Date;
 
 public class KitchenMenu {
 
+
+    @SerializedName("id")
+    private int id;
 
     @SerializedName("usercity")
     private String city;
@@ -12,11 +14,11 @@ public class KitchenMenu {
     @SerializedName("userhotel")
     private String property;
 
-    @SerializedName("mealtype")
-    private String mealtype;
+    @SerializedName("meal_type")
+    private String meal_type;
 
     @SerializedName("daily_date")
-    private Date date;
+    private String date;
 
     @SerializedName("item_name")
     private String item;
@@ -25,10 +27,11 @@ public class KitchenMenu {
     private String manager;
 
 
-    public KitchenMenu(String city, String property, String mealtype, Date date, String item, String manager) {
+    public KitchenMenu(int id, String city, String property, String meal_type, String date, String item, String manager) {
+        this.id = id;
         this.city = city;
         this.property = property;
-        this.mealtype = mealtype;
+        this.meal_type = meal_type;
         this.date = date;
         this.item = item;
         this.manager = manager;
@@ -52,18 +55,18 @@ public class KitchenMenu {
     }
 
     public String getMealtype() {
-        return mealtype;
+        return meal_type;
     }
 
-    public void setMealtype(String mealtype) {
-        this.mealtype = mealtype;
+    public void setMealtype(String meal_type) {
+        this.meal_type = meal_type;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -81,6 +84,15 @@ public class KitchenMenu {
 
     public void setManager(String manager) {
         this.manager = manager;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

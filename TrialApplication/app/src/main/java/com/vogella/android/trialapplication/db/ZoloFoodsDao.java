@@ -31,4 +31,6 @@ public interface ZoloFoodsDao {
     public List<ZoloFoods> getData(String city, String property);
 
 
+
+
 }
