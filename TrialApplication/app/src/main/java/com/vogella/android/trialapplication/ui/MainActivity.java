@@ -19,8 +19,6 @@ import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private ArrayList<String> allCities, propertiesList;
 
 
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allCities);
         spinnerCities.setAdapter(citiesAdapter);
-
+//        spinnerCities.setSelection(postion);
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

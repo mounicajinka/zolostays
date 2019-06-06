@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:background="#f4f4f4" >
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnSubmit">
+    </android.support.v7.widget.RecyclerView>
+
     <Spinner
         android:id="@+id/itemsSpinner"
         android:layout_alignParentTop="true"
@@ -12,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvWastage"
@@ -22,6 +30,7 @@
         android:layout_marginStart="50dp"
         android:layout_below="@+id/itemsSpinner"
         android:text="Wastage: "
+        android:visibility="gone"
         android:layout_marginLeft="50dp" />
 
     <EditText
@@ -33,6 +42,7 @@
         android:layout_below="@+id/itemsSpinner"
         android:layout_toRightOf="@+id/tvWastage"
         android:layout_toEndOf="@+id/tvWastage"
+        android:visibility="gone"
         android:layout_marginLeft="12dp" />
 
 

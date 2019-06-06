@@ -118,7 +118,7 @@ public class LoginForm extends AppCompatActivity {
 
                                         @Override
                                         public void onFailure(Call<List<KitchenMenu>> call, Throwable t ) {
-                                            Log.d(TAG, "httpCallBack: "+t.getStackTrace());
+                                            Log.d(TAG, "httpCallBack: "+t.getMessage());
 
                                         }
                                     };

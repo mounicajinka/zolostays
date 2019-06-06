@@ -2,6 +2,9 @@ package com.vogella.android.trialapplication.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +23,8 @@ public class WastageActivity extends AppCompatActivity {
 
     String selectedTypeOfMeal = "";
     ArrayList<String> items = new ArrayList<>();
+    RecyclerView rvList;
+    RecyclerViewAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,18 @@ public class WastageActivity extends AppCompatActivity {
 
         Spinner spinner = findViewById(R.id.itemsSpinner);
 
+        rvList = findViewById(R.id.rvList);
+
         String city = getIntent().getStringExtra("city");
         String property = getIntent().getStringExtra("property");
         String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
 
         items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
+
+        recyclerViewAdapter = new RecyclerViewAdapter(items);
+        rvList.setLayoutManager(new LinearLayoutManager(WastageActivity.this, LinearLayoutManager.VERTICAL, false));
+        rvList.setItemAnimator(new DefaultItemAnimator());
+        rvList.setAdapter(recyclerViewAdapter);
 
         ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(mealsAdapter);
