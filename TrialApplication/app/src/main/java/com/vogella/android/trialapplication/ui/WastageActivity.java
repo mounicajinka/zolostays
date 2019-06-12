@@ -80,9 +80,9 @@ public class WastageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(WastageActivity.this, "wastage: "+edtvWastage.getText()+" for typeOfMeal: "+selectedTypeOfMeal, Toast.LENGTH_LONG).show();
+                //Toast.makeText(WastageActivity.this, "wastage: "+edtvWastage.getText()+" for typeOfMeal: "+selectedTypeOfMeal, Toast.LENGTH_LONG).show();
 
-                Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
+                //Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
 
 
                 List<AdapterData> adapterDataList = recyclerViewAdapter.getAdapterData();

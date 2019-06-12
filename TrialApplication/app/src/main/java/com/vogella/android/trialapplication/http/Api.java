@@ -2,7 +2,6 @@ package com.vogella.android.trialapplication.http;
 
 import com.google.gson.JsonObject;
 import com.vogella.android.trialapplication.model.KitchenMenu;
-import com.vogella.android.trialapplication.model.MealAnalysis;
 
 import org.json.JSONObject;
 
@@ -19,8 +18,8 @@ public interface Api {
     @GET("Kitchen_menu/alldata")
     Call<List<KitchenMenu>> getData();
 
-    @POST("http://192.168.13.118:4200/meal_analysis/insert")
-    Call<JsonObject> sendData(JSONObject jsonObject);
+    @POST("meal_analysis/insert")
+    Call<JsonObject> sendData(@Body JSONObject jsonObject);
 
     //Call<User> createUser(@Body User user);
 }

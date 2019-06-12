@@ -33,6 +33,10 @@ public class MealAnalysis {
     @SerializedName("kitchen_name")
     private String manager;
 
+    public MealAnalysis() {
+
+    }
+
     public MealAnalysis(String city, String property, String mealtype, Date date, String item, String manager,
                         String servicetype, String vesselid, Integer wastage) {
         this.city = city;
