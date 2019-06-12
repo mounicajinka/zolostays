@@ -45,7 +45,6 @@
         android:visibility="gone"
         android:layout_marginLeft="12dp" />
 
-
     <Button
         android:id="@+id/btnSubmit"
         android:layout_alignParentBottom="true"

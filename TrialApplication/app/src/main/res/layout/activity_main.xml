@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="#f4f4f4" >
 
-
     <Spinner
         android:id="@+id/citySpinner"
         android:layout_width="match_parent"
@@ -18,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:visibility="gone"
         android:spinnerMode="dropdown"/>
 
     <Spinner
@@ -26,7 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:visibility="gone"
+        android:spinnerMode="dropdown"/>
+
+    <Spinner
+        android:id="@+id/serviceSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
 
     <Button

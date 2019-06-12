@@ -81,7 +81,6 @@ public class LoginForm extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-
                                 if (task.isSuccessful()) {
                                     final Callback<List<KitchenMenu>> data = new Callback<List<KitchenMenu>>() {
                                         @Override
@@ -95,16 +94,21 @@ public class LoginForm extends AppCompatActivity {
                                                         String manager = KitchenData.get(i).getManager();
                                                         int id = KitchenData.get(i).getId();
                                                         String city  = KitchenData.get(i).getCity();
+                                                        System.out.println("hhhhhc "+city);
                                                         String property = KitchenData.get(i).getProperty();
+                                                        System.out.println("hhhhhpc  "+property);
                                                         String date = KitchenData.get(i).getDate();
                                                         String mealType = KitchenData.get(i).getMealtype();
                                                         String itemName = KitchenData.get(i).getItem();
                                                         System.out.println("hhhhh "+mealType);
-                                                        ZoloFoods zoloFoods =new ZoloFoods(id, manager,city,property,date,mealType,itemName,"","", 0, false);
+                                                        ZoloFoods zoloFoods =new ZoloFoods(id,manager,city,property,date,mealType,itemName, false);
                                                         ZoloFoodsVM.saveData(zoloFoods);
 
                                                     }
                                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    SharedPreferences sharedPreferences = App.getInstance().getSharedPreferences("AppPreference", Context.MODE_PRIVATE);
+                                                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
+                                                    finish();
 
                                                 }catch (Exception e){
                                                     Log.d("onResponse", "There is an error");
@@ -123,8 +127,6 @@ public class LoginForm extends AppCompatActivity {
                                         }
                                     };
                                     App.getInstance().api.getData().enqueue(data);
-                                    SharedPreferences sharedPreferences = App.getInstance().getSharedPreferences("AppPreference", Context.MODE_PRIVATE);
-                                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
                                 }
                                 else {
                                     Toast.makeText(LoginForm.this, "Login Failed or User Not Available", Toast.LENGTH_SHORT).show();
@@ -140,6 +142,7 @@ public class LoginForm extends AppCompatActivity {
 
     public void btn_signup_Form(View view) {
         startActivity(new Intent(getApplicationContext(), SignupForm.class));
+        finish();
     }
 
 

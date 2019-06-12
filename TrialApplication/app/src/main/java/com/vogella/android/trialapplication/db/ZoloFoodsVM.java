@@ -2,12 +2,8 @@ package com.vogella.android.trialapplication.db;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.persistence.room.Room;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.vogella.android.trialapplication.App;
-import com.vogella.android.trialapplication.AppDataBase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,10 +30,6 @@ public class ZoloFoodsVM extends AndroidViewModel {
         return new ArrayList<>(properties);
     }
 
-   /* public static ArrayList<String> getMealType(String city,String property) {
-        Set<String> typeOfMeal = new HashSet<>(App.getInstance().getDB().zoloFoodsDao().getData(city,property));
-        return new ArrayList<>(properties)
-    }*/
 
     public static ArrayList<String> getItemsByData(String city, String property, String typeOfMeal) {
         ArrayList<ZoloFoods> data = new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getData(city, property));

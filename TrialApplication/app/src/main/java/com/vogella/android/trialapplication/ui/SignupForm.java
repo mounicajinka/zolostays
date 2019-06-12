@@ -19,7 +19,7 @@ import com.vogella.android.trialapplication.R;
 
 public class SignupForm extends AppCompatActivity {
 
-    EditText txtFullName,txtEmailID,txtPassword,txtConfirmPassword;
+    EditText txtFullName, txtEmailID, txtPassword, txtConfirmPassword;
     Button btn_register;
     ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
@@ -37,9 +37,8 @@ public class SignupForm extends AppCompatActivity {
         txtEmailID = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
         txtConfirmPassword = findViewById(R.id.txt_confirm_password);
-        btn_register =  findViewById(R.id.buttonRegister);
+        btn_register = findViewById(R.id.buttonRegister);
         progressBar = findViewById(R.id.progressBar);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -47,36 +46,36 @@ public class SignupForm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String fullname =txtFullName.getText().toString().trim();
-                String email=txtEmailID.getText().toString().trim();
+                String fullname = txtFullName.getText().toString().trim();
+                String email = txtEmailID.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
                 String confirmpassword = txtConfirmPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(fullname)){
+                if (TextUtils.isEmpty(fullname)) {
                     Toast.makeText(getApplicationContext(), "Please Enter Your Full Name", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Please Enter Email", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
 
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Please Enter Password", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
 
-                if(TextUtils.isEmpty(confirmpassword)){
+                if (TextUtils.isEmpty(confirmpassword)) {
                     Toast.makeText(getApplicationContext(), "Please Enter Confirm Password", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
 
-                if(password.length()<8){
+                if (password.length() < 8) {
 
                     Toast.makeText(getApplicationContext(), "Password too short", Toast.LENGTH_SHORT).show();
 
@@ -84,7 +83,7 @@ public class SignupForm extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (password.equals(confirmpassword)){
+                if (password.equals(confirmpassword)) {
 
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupForm.this, new OnCompleteListener<AuthResult>() {
@@ -92,11 +91,11 @@ public class SignupForm extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressBar.setVisibility(View.GONE);
 
-
                                     if (task.isSuccessful()) {
 
-                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                         Toast.makeText(getApplicationContext(), "Registration Completed", Toast.LENGTH_SHORT).show();
+                                        finish();
 
                                     } else {
 
@@ -106,20 +105,8 @@ public class SignupForm extends AppCompatActivity {
 
                                 }
                             });
-
                 }
-
-
-
-
-
-
             }
         });
-
-
-
-
-
     }
 }

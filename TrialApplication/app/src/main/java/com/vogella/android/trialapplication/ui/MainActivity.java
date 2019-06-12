@@ -16,37 +16,37 @@ import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> allCities, propertiesList;
 
-
     private static String TAG = "MainActivity";
 
-    Spinner spinnerCities, spinnerProperty, spinnerMeals;
+    Spinner spinnerCities, spinnerProperty, spinnerMeals, spinnerServices;
 
-    String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "";
+    String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "", selectedServiceType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        init();
+
         allCities = ZoloFoodsVM.getAllCities();
-
-        spinnerCities = findViewById(R.id.citySpinner);
-        spinnerProperty = findViewById(R.id.propertySpinner);
-        spinnerMeals = findViewById(R.id.mealsSpinner);
-
-        spinnerProperty.setVisibility(View.GONE);
-        spinnerMeals.setVisibility(View.GONE);
-
 
         final ArrayList<String> mealsList = new ArrayList<>();
         mealsList.add("Breakfast");
         mealsList.add("Lunch");
         mealsList.add("Dinner");
+
+        final ArrayList<String> serviceTypeList = new ArrayList<>();
+        serviceTypeList.add("Dispatch");
+        serviceTypeList.add("Receive");
+        serviceTypeList.add("Wastage");
+
+        ArrayAdapter<String> serviceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, serviceTypeList);
+        spinnerServices.setAdapter(serviceAdapter);
 
         ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mealsList);
         spinnerMeals.setAdapter(mealsAdapter);
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allCities);
         spinnerCities.setAdapter(citiesAdapter);
 //        spinnerCities.setSelection(postion);
+
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -100,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        spinnerServices.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedServiceType = serviceTypeList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         Button btnNext = findViewById(R.id.btnNext);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +125,18 @@ public class MainActivity extends AppCompatActivity {
                     wastageIntent.putExtra("city", selectedCity);
                     wastageIntent.putExtra("property", selectedProperty);
                     wastageIntent.putExtra("typeOfMeal", selectedTypeOfMeal);
+                    wastageIntent.putExtra("serviceType", selectedServiceType);
 
                     startActivity(wastageIntent);
                 }
             }
         });
+    }
 
-//
-    }}
+    private void init() {
+        spinnerCities = findViewById(R.id.citySpinner);
+        spinnerProperty = findViewById(R.id.propertySpinner);
+        spinnerMeals = findViewById(R.id.mealsSpinner);
+        spinnerServices = findViewById(R.id.serviceSpinner);
+    }
+}

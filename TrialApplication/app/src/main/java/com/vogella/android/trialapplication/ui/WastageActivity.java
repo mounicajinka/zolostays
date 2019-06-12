@@ -14,10 +14,20 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+import com.vogella.android.trialapplication.model.AdapterData;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WastageActivity extends AppCompatActivity {
 
@@ -35,9 +45,10 @@ public class WastageActivity extends AppCompatActivity {
 
         rvList = findViewById(R.id.rvList);
 
-        String city = getIntent().getStringExtra("city");
-        String property = getIntent().getStringExtra("property");
-        String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
+        final String city = getIntent().getStringExtra("city");
+        final String property = getIntent().getStringExtra("property");
+        final String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
+        final String serviceType = getIntent().getStringExtra("serviceType");
 
         items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
 
@@ -73,37 +84,39 @@ public class WastageActivity extends AppCompatActivity {
 
                 Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
 
-                //TODO: Network call, response, write in to mobile DB\
 
+                List<AdapterData> adapterDataList = recyclerViewAdapter.getAdapterData();
+                for (int i=0; i<adapterDataList.size(); i++) {
+                    Log.d("CheckKarenge", "ItemName "+adapterDataList.get(i).getItemname()+", vessel "+adapterDataList.get(i).getVessel_id()+", weight "+adapterDataList.get(i).getWeight());
 
+                    Callback<JsonObject> callback = new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                //ZoloFoods =new ZoloFoods(manager,city,property,date,new Meals(mealType,itemName),false);
-                //                                                        ZoloFoodsVM.saveData(zoloFoods);
-//
+                        }
 
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable throwable) {
 
+                        }
+                    };
 
-                //                                    do network calls here
-                //                                    like POST URL after writing into database
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("city", city);
+                        jsonObject.put("property", property);
+                        jsonObject.put("typeOfMeal", typeOfMeal);
+                        jsonObject.put("serviceType", serviceType);
+                        jsonObject.put("itemName", adapterDataList.get(i).getItemname());
+                        jsonObject.put("vesselId", adapterDataList.get(i).getVessel_id());
+                        jsonObject.put("weight", adapterDataList.get(i).getWeight());
 
-                //                                    JSONObject jsonObject = new JSONObject();
-//
-//
-//                                    try {
-//                                        String property = jsonObject.getString("property");
-//
-//                                        String man
-//
-//
-//                                        ZoloFoods zoloFoods = new ZoloFoods( "", "", property, new Meals("", new ArrayList<String>(), 0), false);
-//                                        ZoloFoodsVM.saveData(zoloFoods);
+                        App.getInstance().api.sendData(jsonObject).enqueue(callback);
+                    } catch (Exception ex) {
+                        Log.e("JSONparsingException", "Exception "+ ex.getMessage());
+                    }
 
-//
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-
-
+                }
             }
         });
 

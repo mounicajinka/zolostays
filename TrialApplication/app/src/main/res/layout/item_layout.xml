@@ -28,6 +28,14 @@
 
         </RelativeLayout>
 
+        <Spinner
+            android:id="@+id/vesselSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,37 +63,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                android:text="Vessel Id :"/>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp">
-
-                <EditText
-                    android:id="@+id/vesselId"
-                    android:inputType="number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="20"/>
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <View
