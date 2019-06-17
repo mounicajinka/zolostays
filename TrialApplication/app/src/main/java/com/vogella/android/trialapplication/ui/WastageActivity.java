@@ -14,9 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
-import com.google.gson.JsonObject;
-import com.vogella.android.trialapplication.App;
+
 import com.vogella.android.trialapplication.R;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 import com.vogella.android.trialapplication.http.Api;
@@ -24,9 +25,9 @@ import com.vogella.android.trialapplication.http.ApiClient;
 import com.vogella.android.trialapplication.model.AdapterData;
 import com.vogella.android.trialapplication.model.AnalysisData;
 
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,6 +35,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WastageActivity extends AppCompatActivity {
+
+
+    Date c = Calendar.getInstance().getTime();
+    SimpleDateFormat df = new SimpleDateFormat("EEEE dd/MM/yyyy");
+    String formattedDate = df.format(c);
+
 
     String selectedTypeOfMeal = "";
     ArrayList<String> items = new ArrayList<>();
@@ -53,7 +60,7 @@ public class WastageActivity extends AppCompatActivity {
         final String property = getIntent().getStringExtra("property");
         final String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
         final String serviceType = getIntent().getStringExtra("serviceType");
-        final String date = "date";
+        final String date = formattedDate;
         final String kitchen_name = " saksham";
 
         items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
@@ -86,51 +93,16 @@ public class WastageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Toast.makeText(WastageActivity.this, "wastage: "+edtvWastage.getText()+" for typeOfMeal: "+selectedTypeOfMeal, Toast.LENGTH_LONG).show();
-
-                //   Log.d("TAG", "submit wastage: "+edtvWastage.getText().toString());
-
 
                 List<AdapterData> adapterDataList = recyclerViewAdapter.getAdapterData();
                 for (int i = 0; i < adapterDataList.size(); i++) {
                     Log.d("CheckKarenge", "ItemName " + adapterDataList.get(i).getItemname() + ", vessel " + adapterDataList.get(i).getVessel_id() + ", weight " + adapterDataList.get(i).getWeight());
 
-//                    Callback<JsonObject> callback = new Callback<JsonObject>() {
-//                        @Override
-//                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<JsonObject> call, Throwable throwable) {
-//
-//                        }
-//                    };
-
-//                    JSONObject jsonObject = new JSONObject();
-//                    try {
-//                        jsonObject.put("type_of_entry", city);
-//                        System.out.println("hhhhhs "+city);
-//                        jsonObject.put("Property_name", property);
-//                        jsonObject.put("meal_type", typeOfMeal);
-//                        jsonObject.put("form_type", serviceType);
-//                        jsonObject.put("item_name", adapterDataList.get(i).getItemname());
-//                        jsonObject.put("vessel_id", adapterDataList.get(i).getVessel_id());
-//                        jsonObject.put("weight", adapterDataList.get(i).getWeight());
-//                        jsonObject.put("date",date);
-//                        jsonObject.put("kitchen_name",kitchen_name);
-//
-//                        Log.d("tag", jsonObject.toString(4));
-//
-//                        App.getInstance().api.sendData(jsonObject).enqueue(callback);
-//                    } catch (Exception ex) {
-//                        Log.e("JSONparsingException", "Exception "+ ex.getMessage());
-//                    }
 
 
                     Api apiService =
                             ApiClient.getClient().create(Api.class);
-                    Call<AnalysisData> call = apiService.saveData("Wednesday 05/06/2019", "serviceType", adapterDataList.get(i).getItemname(), kitchen_name, typeOfMeal, property, city, adapterDataList.get(i).getVessel_id(), "" + adapterDataList.get(i).getWeight());
+                    Call<AnalysisData> call = apiService.saveData(adapterDataList.get(i).getItemname(), adapterDataList.get(i).getVessel_id(), "" + adapterDataList.get(i).getWeight(),kitchen_name,property,serviceType,typeOfMeal,city,date);
                     System.out.println("retrofit URL " + call.request());
                     call.enqueue(new Callback<AnalysisData>() {
                         @Override
