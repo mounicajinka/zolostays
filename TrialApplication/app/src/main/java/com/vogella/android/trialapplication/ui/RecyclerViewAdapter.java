@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
-import com.vogella.android.trialapplication.db.ZoloFoodsVM;
 import com.vogella.android.trialapplication.model.AdapterData;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(List<String> listOfItems) {
         this.listOfItems = listOfItems;
         for (int i=0; i<listOfItems.size(); i++) {
-            adapterDataList.add(new AdapterData(listOfItems.get(i), "A", 0));
+            adapterDataList.add(new AdapterData(listOfItems.get(i), "A", 0.0));
         }
     }
 
@@ -77,7 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 AdapterData adapterData = adapterDataList.get(viewHolder.getAdapterPosition());
-                adapterData.setWeight(Integer.parseInt(viewHolder.etWeight.getText().toString()));
+                adapterData.setWeight(Double.parseDouble(viewHolder.etWeight.getText().toString()));
                 adapterDataList.remove(viewHolder.getAdapterPosition());
                 adapterDataList.add(viewHolder.getAdapterPosition(), adapterData);
             }

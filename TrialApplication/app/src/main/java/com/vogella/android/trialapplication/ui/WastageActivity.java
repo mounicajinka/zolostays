@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ import com.vogella.android.trialapplication.http.Api;
 import com.vogella.android.trialapplication.http.ApiClient;
 import com.vogella.android.trialapplication.model.AdapterData;
 import com.vogella.android.trialapplication.model.AnalysisData;
+import com.vogella.android.trialapplication.model.MealAnalysis;
 
 
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class WastageActivity extends AppCompatActivity {
     ArrayList<String> items = new ArrayList<>();
     RecyclerView rvList;
     RecyclerViewAdapter recyclerViewAdapter;
+    TextView errorMessage;
+    ArrayList<MealAnalysis> mealAnalysis;
+    private int checkCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class WastageActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.itemsSpinner);
 
         rvList = findViewById(R.id.rvList);
+        errorMessage = findViewById(R.id.errorMessage);
 
         final String city = getIntent().getStringExtra("city");
         final String property = getIntent().getStringExtra("property");
@@ -62,13 +68,20 @@ public class WastageActivity extends AppCompatActivity {
         final String serviceType = getIntent().getStringExtra("serviceType");
         final String date = formattedDate;
         final String kitchen_name = " saksham";
+        System.out.println("the current date is "+formattedDate);
 
-        items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal);
+        items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal, date);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(items);
-        rvList.setLayoutManager(new LinearLayoutManager(WastageActivity.this, LinearLayoutManager.VERTICAL, false));
-        rvList.setItemAnimator(new DefaultItemAnimator());
-        rvList.setAdapter(recyclerViewAdapter);
+        if (items.size() > 0){
+            recyclerViewAdapter = new RecyclerViewAdapter(items);
+            rvList.setLayoutManager(new LinearLayoutManager(WastageActivity.this, LinearLayoutManager.VERTICAL, false));
+            rvList.setItemAnimator(new DefaultItemAnimator());
+            rvList.setAdapter(recyclerViewAdapter);
+            errorMessage.setVisibility(View.GONE);
+        } else {
+            errorMessage.setVisibility(View.VISIBLE);
+        }
+
 
         ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(mealsAdapter);
@@ -93,13 +106,13 @@ public class WastageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                List<AdapterData> adapterDataList = recyclerViewAdapter.getAdapterData();
+                mealAnalysis = new ArrayList<>();
+                final List<AdapterData> adapterDataList = recyclerViewAdapter.getAdapterData();
                 for (int i = 0; i < adapterDataList.size(); i++) {
-                    Log.d("CheckKarenge", "ItemName " + adapterDataList.get(i).getItemname() + ", vessel " + adapterDataList.get(i).getVessel_id() + ", weight " + adapterDataList.get(i).getWeight());
-
-
-
+                    final String itemName = adapterDataList.get(i).getItemname();
+                    final String vessalId = adapterDataList.get(i).getVessel_id();
+                    final Double wastage = adapterDataList.get(i).getWeight();
+                    Log.d("CheckKarenge", "ItemName " + itemName + ", vessel " + vessalId + ", weight " + wastage);
                     Api apiService =
                             ApiClient.getClient().create(Api.class);
                     Call<AnalysisData> call = apiService.saveData(adapterDataList.get(i).getItemname(), adapterDataList.get(i).getVessel_id(), "" + adapterDataList.get(i).getWeight(),kitchen_name,property,serviceType,typeOfMeal,city,date);
@@ -110,6 +123,15 @@ public class WastageActivity extends AppCompatActivity {
                             System.out.println("hh success retrofit URL "+response.body());
 
                             if (response.body() != null) {
+                                checkCount = checkCount+1;
+                                MealAnalysis analysis = new MealAnalysis();
+                                analysis.setItem(itemName);
+                                analysis.setVesselid(vessalId);
+                                analysis.setWastage(wastage);
+                                mealAnalysis.add(analysis);
+                                if(checkCount == adapterDataList.size()) {
+                                    printArrayList(mealAnalysis);
+                                }
                                 Toast.makeText(WastageActivity.this, "Data saved successfully. Your new Id is "+response.body().getInsertId(), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(WastageActivity.this, "Something wwent wrong", Toast.LENGTH_SHORT).show();
@@ -123,11 +145,20 @@ public class WastageActivity extends AppCompatActivity {
                         }
                     });
 
-
                 }
+
+
             }
         });
 
+    }
+
+    private void printArrayList(ArrayList<MealAnalysis> mealAnalysis){
+        for (MealAnalysis mealAnalysis1: mealAnalysis){
+            System.out.println("hh item name: "+mealAnalysis1.getItem());
+            System.out.println("hh item wAstage: "+mealAnalysis1.getWastage());
+            System.out.println("hh item getVesselid: "+mealAnalysis1.getVesselid());
+        }
     }
 
 }

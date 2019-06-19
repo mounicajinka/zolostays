@@ -31,12 +31,12 @@ public class ZoloFoodsVM extends AndroidViewModel {
     }
 
 
-    public static ArrayList<String> getItemsByData(String city, String property, String typeOfMeal) {
+    public static ArrayList<String> getItemsByData(String city, String property, String typeOfMeal,String date) {
         ArrayList<ZoloFoods> data = new ArrayList<>(App.getInstance().getDB().zoloFoodsDao().getData(city, property));
         ArrayList<String> items = new ArrayList<>();
 
         for (int i=0; i<data.size(); i++) {
-            if (data.get(i).getMeal_type().equalsIgnoreCase(typeOfMeal)) {
+            if (data.get(i).getMeal_type().equalsIgnoreCase(typeOfMeal) && data.get(i).getDate().equals(date)) {
                 items.add(data.get(i).getItem());
             }
         }

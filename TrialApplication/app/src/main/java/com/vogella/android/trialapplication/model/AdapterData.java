@@ -11,9 +11,9 @@ public class AdapterData {
     private String vessel_id;
 
     @SerializedName("weight")
-    private Integer weight;
+    private Double weight;
 
-    public AdapterData(String itemname,String vessel_id,Integer weight){
+    public AdapterData(String itemname,String vessel_id,Double weight){
         this.itemname=itemname;
         this.vessel_id=vessel_id;
         this.weight = weight;
@@ -35,11 +35,11 @@ public class AdapterData {
         this.vessel_id = vessel_id;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 }

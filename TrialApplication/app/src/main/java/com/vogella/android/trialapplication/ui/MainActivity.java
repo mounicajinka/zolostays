@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.vogella.android.trialapplication.R;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "MainActivity";
 
     Spinner spinnerCities, spinnerProperty, spinnerMeals, spinnerServices;
+
+    DatePicker picker;
 
     String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "", selectedServiceType = "";
 
@@ -111,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
 
         Button btnNext = findViewById(R.id.btnNext);
 

@@ -28,7 +28,7 @@ public class MealAnalysis {
     private String vesselid;
 
     @SerializedName("weight")
-    private Integer wastage;
+    private Double wastage;
 
     @SerializedName("kitchen_name")
     private String manager;
@@ -37,19 +37,19 @@ public class MealAnalysis {
 
     }
 
-    public MealAnalysis(String city, String property, String mealtype, Date date, String item, String manager,
-                        String servicetype, String vesselid, Integer wastage) {
-        this.city = city;
-        this.property = property;
-        this.mealtype = mealtype;
-        this.date = date;
-        this.item = item;
-        this.manager = manager;
-        this.servicetype = servicetype;
-        this.vesselid = vesselid;
-        this.wastage = wastage;
-
-    }
+//    public MealAnalysis(String city, String property, String mealtype, Date date, String item, String manager,
+//                        String servicetype, String vesselid, Integer wastage) {
+//        this.city = city;
+//        this.property = property;
+//        this.mealtype = mealtype;
+//        this.date = date;
+//        this.item = item;
+//        this.manager = manager;
+//        this.servicetype = servicetype;
+//        this.vesselid = vesselid;
+//        this.wastage = wastage;
+//
+//    }
 
     public String getCity() {
         return city;
@@ -107,11 +107,11 @@ public class MealAnalysis {
         this.vesselid = vesselid;
     }
 
-    public Integer getWastage() {
+    public Double getWastage() {
         return wastage;
     }
 
-    public void setWastage(Integer wastage) {
+    public void setWastage(Double wastage) {
         this.wastage = wastage;
     }
 
