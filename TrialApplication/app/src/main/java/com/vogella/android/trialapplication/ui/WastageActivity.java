@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
@@ -68,11 +69,11 @@ public class WastageActivity extends AppCompatActivity {
         final String serviceType = getIntent().getStringExtra("serviceType");
         final String date = formattedDate;
         final String kitchen_name = " saksham";
-        System.out.println("the current date is "+formattedDate);
+        System.out.println("the current date is " + formattedDate);
 
         items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal, date);
 
-        if (items.size() > 0){
+        if (items.size() > 0) {
             recyclerViewAdapter = new RecyclerViewAdapter(items);
             rvList.setLayoutManager(new LinearLayoutManager(WastageActivity.this, LinearLayoutManager.VERTICAL, false));
             rvList.setItemAnimator(new DefaultItemAnimator());
@@ -83,7 +84,7 @@ public class WastageActivity extends AppCompatActivity {
         }
 
 
-        ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        final ArrayAdapter<String> mealsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinner.setAdapter(mealsAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,24 +116,33 @@ public class WastageActivity extends AppCompatActivity {
                     Log.d("CheckKarenge", "ItemName " + itemName + ", vessel " + vessalId + ", weight " + wastage);
                     Api apiService =
                             ApiClient.getClient().create(Api.class);
-                    Call<AnalysisData> call = apiService.saveData(adapterDataList.get(i).getItemname(), adapterDataList.get(i).getVessel_id(), "" + adapterDataList.get(i).getWeight(),kitchen_name,property,serviceType,typeOfMeal,city,date);
+                    Call<AnalysisData> call = apiService.saveData(adapterDataList.get(i).getItemname(), adapterDataList.get(i).getVessel_id(), "" + adapterDataList.get(i).getWeight(), kitchen_name, property, serviceType, typeOfMeal, city, date);
                     System.out.println("retrofit URL " + call.request());
                     call.enqueue(new Callback<AnalysisData>() {
                         @Override
                         public void onResponse(Call<AnalysisData> call, Response<AnalysisData> response) {
-                            System.out.println("hh success retrofit URL "+response.body());
+                            System.out.println("hh success retrofit URL " + response.body());
 
                             if (response.body() != null) {
-                                checkCount = checkCount+1;
+                                checkCount = checkCount + 1;
                                 MealAnalysis analysis = new MealAnalysis();
                                 analysis.setItem(itemName);
                                 analysis.setVesselid(vessalId);
                                 analysis.setWastage(wastage);
                                 mealAnalysis.add(analysis);
-                                if(checkCount == adapterDataList.size()) {
+                                if (checkCount == adapterDataList.size()) {
                                     printArrayList(mealAnalysis);
                                 }
-                                Toast.makeText(WastageActivity.this, "Data saved successfully. Your new Id is "+response.body().getInsertId(), Toast.LENGTH_SHORT).show();
+
+                                Log.d("CheckKarenge", "Response Size "+mealAnalysis.size());
+
+                                if (mealAnalysis.size() == adapterDataList.size()) {
+                                    Intent intent = new Intent(WastageActivity.this, ReviewScreen.class);
+                                    intent.putExtra("blah", mealAnalysis);
+                                    startActivity(intent);
+                                }
+
+                                Toast.makeText(WastageActivity.this, "Data saved successfully. Your new Id is " + response.body().getInsertId(), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(WastageActivity.this, "Something wwent wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -146,14 +156,14 @@ public class WastageActivity extends AppCompatActivity {
 
                 }
 
-
+                Log.d("CheckKarenge", "Sent Size "+mealAnalysis.size());
             }
         });
 
     }
 
-    private void printArrayList(ArrayList<MealAnalysis> mealAnalysis){
-        for (MealAnalysis mealAnalysis1: mealAnalysis){
+    private void printArrayList(ArrayList<MealAnalysis> mealAnalysis) {
+        for (MealAnalysis mealAnalysis1 : mealAnalysis) {
 
         }
     }
