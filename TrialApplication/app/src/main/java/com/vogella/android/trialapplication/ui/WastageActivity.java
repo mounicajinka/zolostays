@@ -140,7 +140,6 @@ public class WastageActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<AnalysisData> call, Throwable t) {
-                            // Log error here since request failed.
                             System.out.println("hh failure retrofit URL " + t.getMessage());
                         }
                     });
@@ -155,9 +154,7 @@ public class WastageActivity extends AppCompatActivity {
 
     private void printArrayList(ArrayList<MealAnalysis> mealAnalysis){
         for (MealAnalysis mealAnalysis1: mealAnalysis){
-            System.out.println("hh item name: "+mealAnalysis1.getItem());
-            System.out.println("hh item wAstage: "+mealAnalysis1.getWastage());
-            System.out.println("hh item getVesselid: "+mealAnalysis1.getVesselid());
+
         }
     }
 

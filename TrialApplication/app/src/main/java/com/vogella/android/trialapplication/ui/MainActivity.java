@@ -1,10 +1,12 @@
 package com.vogella.android.trialapplication.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,8 +15,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import com.vogella.android.trialapplication.App;
 import com.vogella.android.trialapplication.R;
+import com.vogella.android.trialapplication.db.ZoloFoods;
 import com.vogella.android.trialapplication.db.ZoloFoodsVM;
+import com.vogella.android.trialapplication.model.KitchenMenu;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatePicker picker;
 
+    Button refresh;
     String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "", selectedServiceType = "";
 
     @Override
@@ -35,7 +45,70 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+        getData();
 
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+
+    }
+
+    private void init() {
+        spinnerCities = findViewById(R.id.citySpinner);
+        spinnerProperty = findViewById(R.id.propertySpinner);
+        spinnerMeals = findViewById(R.id.mealsSpinner);
+        spinnerServices = findViewById(R.id.serviceSpinner);
+        refresh = findViewById(R.id.btnRefresh);
+    }
+
+
+    private void getData() {
+        final Callback<List<KitchenMenu>> data = new Callback<List<KitchenMenu>>() {
+            @Override
+            public void onResponse(Call<List<KitchenMenu>> call, Response<List<KitchenMenu>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("TAG", "httpCallBack: " + response.body());
+                    try {
+                        List<KitchenMenu> KitchenData = response.body();
+                        for (int i = 0; i < KitchenData.size(); i++) {
+
+                            String manager = KitchenData.get(i).getManager();
+                            int id = KitchenData.get(i).getId();
+                            String city = KitchenData.get(i).getCity();
+                            System.out.println("hhhhhc " + city);
+                            String property = KitchenData.get(i).getProperty();
+                            System.out.println("hhhhhpc  " + property);
+                            String date = KitchenData.get(i).getDate();
+                            String mealType = KitchenData.get(i).getMealtype();
+                            String itemName = KitchenData.get(i).getItem();
+                            System.out.println("hhhhh " + mealType);
+                            ZoloFoods zoloFoods = new ZoloFoods(id, manager, city, property, date, mealType, itemName, false);
+                            ZoloFoodsVM.saveData(zoloFoods);
+                        }
+                        setUpFieldsWithdata();
+                    } catch (Exception e) {
+                        Log.d("onResponse", "There is an error");
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.d("TAG", "failure response: " + response.isSuccessful());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<KitchenMenu>> call, Throwable t) {
+                Log.d("TAG", "httpCallBack: " + t.getMessage());
+
+            }
+        };
+        App.getInstance().api.getData().enqueue(data);
+    }
+
+    private void setUpFieldsWithdata() {
         allCities = ZoloFoodsVM.getAllCities();
 
         final ArrayList<String> mealsList = new ArrayList<>();
@@ -134,12 +207,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void init() {
-        spinnerCities = findViewById(R.id.citySpinner);
-        spinnerProperty = findViewById(R.id.propertySpinner);
-        spinnerMeals = findViewById(R.id.mealsSpinner);
-        spinnerServices = findViewById(R.id.serviceSpinner);
     }
 }

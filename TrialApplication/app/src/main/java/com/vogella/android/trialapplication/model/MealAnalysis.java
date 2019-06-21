@@ -2,9 +2,10 @@ package com.vogella.android.trialapplication.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MealAnalysis {
+public class MealAnalysis implements Serializable {
 
     @SerializedName("type_of_entry")
     private String city;
