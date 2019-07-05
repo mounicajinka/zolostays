@@ -64,12 +64,12 @@ public class WastageActivity extends AppCompatActivity {
         errorMessage = findViewById(R.id.errorMessage);
 
         final String city = getIntent().getStringExtra("city");
-        final String property = getIntent().getStringExtra("property");
         final String typeOfMeal = getIntent().getStringExtra("typeOfMeal");
         final String serviceType = getIntent().getStringExtra("serviceType");
         final String date = formattedDate;
-        final String kitchen_name = " saksham";
+        final String kitchen_name = "saksham";
         System.out.println("the current date is " + formattedDate);
+        final String property = getIntent().getStringExtra("property");
 
         items = ZoloFoodsVM.getItemsByData(city, property, typeOfMeal, date);
 

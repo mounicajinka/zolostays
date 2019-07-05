@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +23,7 @@ import com.vogella.android.trialapplication.model.KitchenMenu;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static String TAG = "MainActivity";
 
-    Spinner spinnerCities, spinnerProperty, spinnerMeals, spinnerServices;
+    Spinner spinnerCities, spinnerKitchen, spinnerMeals, spinnerServices;
 
     DatePicker picker;
 
     Button refresh;
-    String selectedCity = "", selectedProperty = "", selectedTypeOfMeal = "", selectedServiceType = "";
+    String selectedCity = "", selectedKitchen = "", selectedTypeOfMeal = "", selectedServiceType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         spinnerCities = findViewById(R.id.citySpinner);
-        spinnerProperty = findViewById(R.id.propertySpinner);
+        spinnerKitchen = findViewById(R.id.propertySpinner);
         spinnerMeals = findViewById(R.id.mealsSpinner);
         spinnerServices = findViewById(R.id.serviceSpinner);
         refresh = findViewById(R.id.btnRefresh);
@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
 
                     propertiesList = ZoloFoodsVM.getPropertiesByCity(selectedCity);
 
-                    ArrayAdapter<String> propertiesAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, propertiesList);
+                    ArrayAdapter<String> kitchenAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, propertiesList);
 
-                    spinnerProperty.setAdapter(propertiesAdapter);
-                    spinnerProperty.setVisibility(View.VISIBLE);
+                    spinnerKitchen.setAdapter(kitchenAdapter);
+                    spinnerKitchen.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -153,12 +153,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        spinnerProperty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerKitchen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedProperty = propertiesList.get(position);
-                Log.d(TAG, "Selected Property: " + selectedProperty);
+                selectedKitchen = propertiesList.get(position);
+                Log.d(TAG, "Selected Property: " + selectedKitchen);
                 spinnerMeals.setVisibility(View.VISIBLE);
+
+                //getAllPropertes(selectedKitchen);
             }
 
             @Override
@@ -194,12 +196,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!(selectedCity.isEmpty() && selectedProperty.isEmpty())) {
-                    Log.d(TAG, "Good to launch another screen: " + selectedCity + " " + selectedProperty);
+                if (!(selectedCity.isEmpty() && selectedKitchen.isEmpty())) {
+                    Log.d(TAG, "Good to launch another screen: " + selectedCity + " " + selectedKitchen);
 
                     Intent wastageIntent = new Intent(getApplicationContext(), WastageActivity.class);
                     wastageIntent.putExtra("city", selectedCity);
-                    wastageIntent.putExtra("property", selectedProperty);
+                    wastageIntent.putExtra("property", selectedKitchen);
                     wastageIntent.putExtra("typeOfMeal", selectedTypeOfMeal);
                     wastageIntent.putExtra("serviceType", selectedServiceType);
 
@@ -208,4 +210,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+   /* private void getAllPropertes(String selectedKitchen){
+
+
+    }*/
 }

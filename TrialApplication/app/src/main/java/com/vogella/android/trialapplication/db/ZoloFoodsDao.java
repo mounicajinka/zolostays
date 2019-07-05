@@ -30,7 +30,4 @@ public interface ZoloFoodsDao {
     @Query("SELECT * FROM zolo_foods  WHERE city=:city AND property=:property")
     public List<ZoloFoods> getData(String city, String property);
 
-
-
-
 }

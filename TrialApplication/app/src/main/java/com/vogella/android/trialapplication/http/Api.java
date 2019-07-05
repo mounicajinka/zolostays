@@ -25,8 +25,6 @@ public interface Api {
     @POST("meal_analysis/insert")
     Call<JsonObject> sendData(@Body JSONObject  jsonObject);
 
-    //Call<User> createUser(@Body User user);
-
     @FormUrlEncoded
     @POST("meal_analysis/insert")
     Call<AnalysisData> saveData(@Field("date") String date, @Field("form_type") String form_type, @Field("item_name") String item_name, @Field("kitchen_name") String kitchen_name,
