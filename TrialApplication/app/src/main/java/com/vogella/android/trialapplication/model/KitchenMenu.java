@@ -8,10 +8,10 @@ public class KitchenMenu {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("usercity")
+    @SerializedName("CITY")
     private String city;
 
-    @SerializedName("userhotel")
+    @SerializedName("Kitchen")
     private String property;
 
     @SerializedName("meal_type")
@@ -23,7 +23,7 @@ public class KitchenMenu {
     @SerializedName("item_name")
     private String item;
 
-    @SerializedName(("username"))
+    @SerializedName(("entered_by"))
     private String manager;
 
 

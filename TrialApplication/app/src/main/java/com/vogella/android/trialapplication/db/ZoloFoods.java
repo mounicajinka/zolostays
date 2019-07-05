@@ -17,15 +17,15 @@ public class ZoloFoods {
     private String date;
 
     @ColumnInfo(name = "manager")
-    @SerializedName("username")
+    @SerializedName("entered_by")
     private String manager;
 
     @ColumnInfo(name = "city")
-    @SerializedName("usercity")
+    @SerializedName("CITY")
     private String city;
 
     @ColumnInfo(name = "property")
-    @SerializedName("userhotel")
+    @SerializedName("Kitchen")
     private String property;
 
     @ColumnInfo(name = "type")

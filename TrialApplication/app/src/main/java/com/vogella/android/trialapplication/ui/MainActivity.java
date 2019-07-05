@@ -28,7 +28,7 @@ import retrofit2.http.GET;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> allCities, propertiesList;
+    private ArrayList<String> allCities = new ArrayList<>(), propertiesList = new ArrayList<>();
 
     private static String TAG = "MainActivity";
 
@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                     propertiesList = ZoloFoodsVM.getPropertiesByCity(selectedCity);
 
                     ArrayAdapter<String> kitchenAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, propertiesList);
-
                     spinnerKitchen.setAdapter(kitchenAdapter);
                     spinnerKitchen.setVisibility(View.VISIBLE);
                 }

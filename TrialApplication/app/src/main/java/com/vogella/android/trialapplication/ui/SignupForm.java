@@ -78,7 +78,7 @@ public class SignupForm extends AppCompatActivity {
                 if (password.length() < 8) {
 
                     Toast.makeText(getApplicationContext(), "Password too short", Toast.LENGTH_SHORT).show();
-
+                    return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
